@@ -1,0 +1,6 @@
+@GamPI_HostAddress = http://localhost:5226
+
+GET {{GamPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
