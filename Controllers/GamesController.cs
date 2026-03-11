@@ -1,5 +1,6 @@
 ﻿using GamPI.Data;
 using GamPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
@@ -215,7 +216,8 @@ namespace GamPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost("add")]
+        [HttpPost("add/{gameId}")]
+        [Authorize] 
         public async Task<IActionResult> AddFavourite([FromBody] int gameId)
         {
             var username = User.Identity?.Name;
