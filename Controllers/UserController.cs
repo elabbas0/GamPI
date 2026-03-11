@@ -27,7 +27,9 @@ namespace GamPI.Controllers
         {
             var username = User.Identity?.Name;
 
-            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+            var user = _context.Users
+    .Include(u => u.FavoriteGames) 
+    .FirstOrDefault(u => u.Username == username);
 
             if (user == null)
                 return NotFound();
