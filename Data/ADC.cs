@@ -1,6 +1,8 @@
 ﻿using GamPI.Models;
 using Microsoft.EntityFrameworkCore;
 
+namespace GamPI.Data;
+
 public class ADC : DbContext
 {
     public ADC(DbContextOptions<ADC> options)

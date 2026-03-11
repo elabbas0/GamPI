@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+using GamPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,12 +44,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 
 app.MapControllers();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.Run();
