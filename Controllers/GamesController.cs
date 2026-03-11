@@ -214,5 +214,24 @@ namespace GamPI.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> AddFavourite([FromBody] int gameId)
+        {
+            var username = User.Identity?.Name;
+            if (username == null)
+                return Unauthorized();
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+            if (user == null)
+                return NotFound("User not found.");
+            var game = await _context.Games.FindAsync(gameId);
+            if (game == null)
+                return NotFound("Game not found.");
+            if (user.FavoriteGames.Any(g => g.Id == gameId))
+                return BadRequest("Game already in favorites.");
+            user.FavoriteGames.Add(game);
+            await _context.SaveChangesAsync();
+            return Ok(new { message = "Game added to favorites." });
+        }
     }
 }
