@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using GamPI.Data;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +34,12 @@ builder.Services.AddAuthentication(options => //auth
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes("super_secret_jwt_key_for_gampi_api_2026_12345"))
     };
+});
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "GamPI_";
 });
 
 var app = builder.Build();

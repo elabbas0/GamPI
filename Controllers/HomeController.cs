@@ -11,7 +11,7 @@ public class HomeController : ControllerBase
         var username = User.Identity?.Name;
         if (userId == null)
         {
-            return Unauthorized("Welcome to GamPI, please log in.");
+            return Unauthorized("Welcome to GamPI, please log in if you want to view your dashboard. You can GET /games without logging in.");
         }
 
         return Ok($"Welcome {username}");

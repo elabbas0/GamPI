@@ -10,7 +10,6 @@
         public DateTime ReleaseDate { get; set; }
         public double Rating { get; set; }
         public string? ImgURL { get; set; }
-
         public string Developer { get; set; }
 
     }
