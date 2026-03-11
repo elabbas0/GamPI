@@ -30,7 +30,7 @@ builder.Services.AddAuthentication(options => //auth
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes("THIS_IS_YOUR_SECRET_KEY"))
+            Encoding.UTF8.GetBytes("super_secret_jwt_key_for_gampi_api_2026_12345"))
     };
 });
 

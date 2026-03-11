@@ -32,7 +32,13 @@ namespace GamPI.Controllers
             if (user == null)
                 return NotFound();
 
-            return Ok(user);
+            return Ok(new
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                Favourites = user.FavoriteGames
+            });
         }
     }
 
@@ -56,7 +62,7 @@ namespace GamPI.Controllers
             };
 
             var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes("THIS_IS_YOUR_SECRET_KEY_CHANGE_IT")
+                Encoding.UTF8.GetBytes("super_secret_jwt_key_for_gampi_api_2026_12345")
             );
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -100,13 +106,18 @@ namespace GamPI.Controllers
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            return Ok(user);
+            return Ok(new User
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email
+            });
         }
 
         [HttpPost]
         [AllowAnonymous]
         [Route("/login")]
-        public IActionResult Login([FromBody] RegisterUserDto request)
+        public IActionResult Login([FromBody] LoginUserDto request)
         {
             var user = _context.Users.FirstOrDefault(u => u.Email == request.Email);
 
@@ -121,7 +132,9 @@ namespace GamPI.Controllers
             }
 
             var token = GenerateJwtToken(user);
-
+            if (token == null) {
+                return StatusCode(500, "Token generation failed");
+            }
             return Ok(new { token });
         }
     }
