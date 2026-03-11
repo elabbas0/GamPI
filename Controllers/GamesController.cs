@@ -218,7 +218,7 @@ namespace GamPI.Controllers
 
         [HttpPost("add/{gameId}")]
         [Authorize] 
-        public async Task<IActionResult> AddFavourite([FromBody] int gameId)
+        public async Task<IActionResult> AddFavourite(int gameId)
         {
             var username = User.Identity?.Name;
             if (username == null)
